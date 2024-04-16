@@ -8,6 +8,8 @@ import Login from './Login'
 import Transactions from './Transactions'
 import Accounts from './Accounts'
 import Navbar from './NavBar'
+import Dashboard from './Dashboard'
+import About from './About'
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
        <Navbar />
         </div>
        
-          <div className="flex-1 overflow-auto lg:ml-[30px]  mt-[10px] lg:pr-3 text-[#022c22] ">
+          <div className="flex-1 overflow-auto lg:ml-[18%]  mt-[10px] lg:pr-3 text-[#022c22] ">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/assets" element={<Assets />} />
@@ -28,6 +30,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/accounts" element={<Accounts />} /> 
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       </div>
       </div>
