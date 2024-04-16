@@ -13,13 +13,13 @@ import Navbar from './NavBar'
 function App() {
   return (
     <Router>
-       <div className="bg-[#f9fafb]  rounded-lg ">
-       <div className="md:flex h-screen overflow-hidden">
+       <div className="bg-[#f9fafb] h-screen  rounded-lg ">
+       <div className="md:flex  overflow-hidden">
        <div className="hidden md:hidden lg:flex">
        <Navbar />
         </div>
        
-          <div className="flex-1 overflow-auto lg:ml-[30px]  mt-[90px] lg:pr-3 text-[#022c22] ">
+          <div className="flex-1 overflow-auto lg:ml-[30px]  mt-[10px] lg:pr-3 text-[#022c22] ">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/assets" element={<Assets />} />
