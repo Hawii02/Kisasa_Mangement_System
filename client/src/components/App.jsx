@@ -21,7 +21,7 @@ function App() {
        <Navbar />
         </div>
        
-          <div className="flex-1 overflow-auto lg:ml-[18%]  mt-[10px] lg:pr-3 text-[#022c22] ">
+          <div className="flex-1 overflow-auto lg:ml-[18%]  lg:mt-[10px] lg:pr-3 text-[#022c22] ">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/assets" element={<Assets />} />
