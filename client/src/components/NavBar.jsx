@@ -16,13 +16,12 @@ function NavBar() {
       <h1 className='text-xl'>Kis<span className='text-2xl text-[#f59e0b] font-bold '>A</span>sa</h1>
 
       </div>
-      <div className=' flex ml-9  flex-col w-full '>
-        <div className='w-full mb-7 flex items-center justify-start'><Link to='/' className='flex items-center justify-center'><BiHomeSmile className='mr-3' /> <span>Home</span></Link></div>
-        <div className='w-full mb-7 flex items-center justify-start'> <Link to='/assets' className='flex items-center justify-center'><MdOutlineInventory  className='mr-3'/> <span>Assets</span></Link></div>
-        <div className='w-full mb-7 flex items-center justify-start'><Link to='/transactions' className='flex items-center justify-center'><GrTransaction className='mr-3'/> <span>Transactions</span></Link></div>
-        <div className='w-full mb-7 flex items-center justify-start'> <Link to='/holdings' className='flex items-center justify-center'><FaHandsHolding className='mr-3'/> <span>Holdings</span></Link></div>
-        <div className='w-full mb-7 flex items-center justify-start'> <Link to='/accounts' className='flex items-center justify-center'><MdOutlineManageAccounts className='mr-3'/> <span>Accounts</span></Link></div>
-        <div className='w-full mb-7 flex items-center justify-start'>  <Link to='/client' className='flex items-center justify-center'><BsPersonFillCheck className='mr-3'/> <span>Clients</span></Link></div>
+      <div className=' flex   flex-col gap-3  w-full justify-center items-center '>
+        <div className='w-full link_item p-2  flex items-center justify-center'><Link to='/' className='flex items-center justify-center'><BiHomeSmile className='mr-3' /> <span>Home</span></Link></div>
+        <div className='w-full link_item p-2  flex items-center justify-center'> <Link to='/assets' className='flex items-center justify-center'><MdOutlineInventory  className='mr-3'/> <span>Assets</span></Link></div>
+        <div className='w-full link_item p-2  flex items-center justify-center'><Link to='/transactions' className='flex items-center justify-center'><GrTransaction className='mr-3'/> <span>Transactions</span></Link></div>
+        <div className='w-full link_item p-2  flex items-center justify-center'> <Link to='/holdings' className='flex items-center justify-center'><FaHandsHolding className='mr-3'/> <span>Holdings</span></Link></div>
+        <div className='w-full link_item p-2  flex items-center justify-center'>  <Link to='/client' className='flex items-center justify-center'><BsPersonFillCheck className='mr-3'/> <span>Clients</span></Link></div>
       </div>
       <div className='w-full items-center justify-center'>
         <hr />

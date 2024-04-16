@@ -10,3 +10,12 @@
     background-position: center;
 
 }
+
+.link_item:hover{
+    background-color: hsl(166, 91%, 9%);
+    border:none;
+    width:200px;
+    align-items:center;
+    color:white;
+
+}
