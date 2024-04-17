@@ -24,8 +24,8 @@ function App() {
   return (
     <Router>
        <div className="bg-[#f9fafb] h-screen  rounded-lg ">
-        <div className='flex lg:hidden'>
-          <button className='text-2xl p-4' onClick={handleToggle}>
+        <div className='flex  lg:hidden'>
+          <button className='text-2xl p-3' onClick={handleToggle}>
           {!isOpen ? <FaBars /> :<IoClose />}
           
           </button>
