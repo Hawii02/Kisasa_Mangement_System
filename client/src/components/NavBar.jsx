@@ -8,12 +8,13 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { FaShopLock } from "react-icons/fa6";
 
+
 function NavBar() {
   return (
-    <div className='bg-white fixed w-[200px] text-[#022c22] font-bold h-full flex flex-col shadow-md '>
+    <div className='bg-white fixed w-full mt-10 lg:mt-0 lg:w-[200px] text-[#022c22] font-bold h-full flex flex-col shadow-md '>
       <div className='flex flex-col mb-9 items-center justify-center w-full h-[160px] '>
       <FaShopLock  className='text-8xl'/> 
-      <h1 className='text-xl'>Kis<span className='text-2xl text-[#f59e0b] font-bold '>A</span>sa</h1>
+      <h1 className='text-xl'>Kis<span className='text-1xl text-[#f59e0b] font-bold '>A</span>sa</h1>
 
       </div>
       <div className=' flex   flex-col gap-3  w-full justify-center items-center '>
