@@ -8,7 +8,7 @@ function Home() {
       <div className='flex flex-col  md:h-full lg:h-screen w-full  rounded-lg items-center '>
         <div className='flex flex-col mb-[30px] mt-[30px] lg:mt-[90px]  items-center justify-center w-full text-3xl md:text-5xl font-bold'>
         <h1 className='text-center'> Banking made</h1>
-        <h1 className='text-center'> Easy, aytime</h1>
+        <h1 className='text-center'> Easy, anytime</h1>
         <h1 className='text-center text-[#f59e0b] hover:text-inherit'> Every Time</h1>
         </div>
         <div className=' w-full flex  items-center justify-center '>
