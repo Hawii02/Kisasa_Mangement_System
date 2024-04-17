@@ -19,3 +19,11 @@
     color:white;
 
 }
+
+.custom_bg_image{
+    background-image: url("https://img.freepik.com/premium-photo/view-professional-handshake-business-people_23-2150917018.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+
+}
+

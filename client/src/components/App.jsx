@@ -21,8 +21,14 @@ function App() {
     const handleToggle =()=>{
       setIsOpen(!isOpen)
     }
+    const [isLoggedIn, setIsLoggedIn]=useState(false)
+
+    const handleLogin=()=>{
+      setIsLoggedIn(!isLoggedIn)
+    }
   return (
     <Router>
+      {!isLoggedIn ? <Login/> :
        <div className="bg-[#f9fafb] h-screen  rounded-lg ">
         <div className='flex  lg:hidden'>
           <button className='text-2xl p-3' onClick={handleToggle}>
@@ -51,7 +57,7 @@ function App() {
       </div>
       </div>
       </div>
-     
+     }
     </Router>
   )
 }
