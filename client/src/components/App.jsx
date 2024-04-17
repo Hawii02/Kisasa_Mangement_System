@@ -29,7 +29,7 @@ function App() {
   return (
     <Router>
       {!isLoggedIn ? <Login/> :
-       <div className="bg-[#f9fafb] h-screen  rounded-lg ">
+       <div className="bg-[#f9fafb] h-screen text-[#022c22] rounded-lg ">
         <div className='flex  lg:hidden'>
           <button className='text-2xl p-3' onClick={handleToggle}>
           {!isOpen ? <FaBars /> :<IoClose />}
