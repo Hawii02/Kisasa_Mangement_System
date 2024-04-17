@@ -11,11 +11,14 @@ function Transactions() {
   }, []);
 
   return (
-    <div className=''>
+    <div className='flex flex-col items-center w-full h-screen mt-5'>
+      <div className='flex items-center justify-center w-full text-4xl font-bold hover:text-[#f59e0b]'>
       <h1 className='text-center'>List of Transactions</h1>
-      <table className='table'>
+    </div>
+      <div className='w-full items-center flex justify-center mt-7'>
+      <table className='border rounded-lg w-full h-screen'>
         <thead>
-          <tr>
+          <tr className='text-[#f59e0b] font-bold'>
             <th>Client Id</th>
             <th>Transaction Type</th>
             <th>Amount</th>
@@ -33,6 +36,7 @@ function Transactions() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
