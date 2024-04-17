@@ -28,7 +28,7 @@ function App() {
     }
   return (
     <Router>
-      {!isLoggedIn ? <login handleLogin={handleLogin}/> :
+      {!isLoggedIn ? <Login/> :
        <div className="bg-[#f9fafb] h-screen  rounded-lg ">
         <div className='flex  lg:hidden'>
           <button className='text-2xl p-3' onClick={handleToggle}>
