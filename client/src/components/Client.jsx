@@ -11,11 +11,15 @@ function Client() {
   }, []);
 
   return (
-    <div className=''>
+    <div className='flex items-center w-full h-screen flex-col mt-5'>
+      <div className='flex items-center justify-center w-full text-4xl font-bold hover:text-[#f59e0b]'>
       <h1 className='text-center'>List of Clients</h1>
-      <table className='table'>
+      </div>
+      <div className='w-full items-center flex justify-center mt-7 '>
+     
+      <table className='border rounded-lg w-full h-screen '>
         <thead>
-          <tr>
+          <tr className='text-[#f59e0b] font-bold '>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -33,6 +37,7 @@ function Client() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
