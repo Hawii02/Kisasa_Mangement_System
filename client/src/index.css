@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.custom_bg_home{
+    background-image:url('https://images.unsplash.com/photo-1642142784358-21bba9293a79?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2VsZiUyMGludGVyZXN0fGVufDB8fDB8fHww&w=1000&q=80');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+
+}
+
+.link_item:hover{
+    background-color: hsl(166, 91%, 9%);
+    border:none;
+    width:200px;
+    align-items:center;
+    color:white;
+
+}
+
+.custom_bg_image{
+    background-image: url("https://img.freepik.com/premium-photo/view-professional-handshake-business-people_23-2150917018.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+
+}
+
