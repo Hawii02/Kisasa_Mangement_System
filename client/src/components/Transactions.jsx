@@ -4,9 +4,11 @@ function Transactions() {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    fetch('')
+    fetch('http://127.0.0.1:5555/transactions')
       .then(response => response.json())
-      .then(data => setTransactions(data))
+      .then(data => {
+        console.log(data)
+        setTransactions(data)})
       .catch(error => console.error('Error fetching transactions:', error));
   }, []);
 
@@ -24,11 +26,11 @@ function Transactions() {
         </thead>
         <tbody>
           {transactions.map(transaction => (
-            <tr key={client.id}>
-              <td>{transaction.Client_Id}</td>
-              <td>{transaction.Transaction_type}</td>
-              <td>{transaction.Amount}</td>
-              <td>{transaction.Transaction_date}</td>
+            <tr key={transaction.id}>
+              <td>{transaction.name}</td>
+              <td>{transaction.amount}</td>
+              <td>{transaction.transaction_date}</td>
+              
             </tr>
           ))}
         </tbody>
