@@ -20,17 +20,20 @@ function Asset() {
       <table className='border rounded-lg w-full h-screen '>
         <thead>
           <tr className='text-[#f59e0b] font-bold '>
-            <th>number_of_shares</th>
-            <th>purchase_date</th>
-            <th>purchase_price</th>
+            <th>Type of asset</th>
+            <th>Value</th>
+            <th>Purchase price</th>
+            <th>Purchase date</th>
           </tr>
         </thead>
         <tbody>
           {assets.map(asset => (
             <tr key={asset.id}>
-              <td>{asset.number_of_shares}</td>
-              <td>{asset.purchase_date}</td>
+              <td>{asset.type_of_asset}</td>
+              <td>{asset.value}</td>
               <td>{asset.purchase_price}</td>
+              <td>{asset.purchase_date}</td>
+              <td>{asset.client_id}</td>
             </tr>
           ))}
         </tbody>

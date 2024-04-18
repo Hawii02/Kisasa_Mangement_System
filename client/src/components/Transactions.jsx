@@ -23,15 +23,17 @@ function Transactions() {
             <th>Transaction Type</th>
             <th>Amount</th>
             <th>Transaction Date</th>
+            <th>Client Name</th>
           </tr>
         </thead>
         <tbody>
           {transactions.map(transaction => (
             <tr key={client.id}>
-              <td>{transaction.Client_Id}</td>
-              <td>{transaction.Transaction_type}</td>
-              <td>{transaction.Amount}</td>
-              <td>{transaction.Transaction_date}</td>
+              <td>{transaction.client_id}</td>
+              <td>{transaction.transaction_type}</td>
+              <td>{transaction.transaction_amount}</td>
+              <td>{transaction.transaction_date}</td>
+              <td>{transaction.client_first_name}</td>
             </tr>
           ))}
         </tbody>

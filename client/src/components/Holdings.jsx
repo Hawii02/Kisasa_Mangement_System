@@ -35,7 +35,7 @@ function Holding() {
               <td>{holding.account_id}</td>
               <td>{holding.asset_id}</td>
               <td>{holding.client_id}</td>
-              <td>{holding.client_name}</td>
+              <td>{holding.client_first_name}</td>
               <td>{holding.number_of_shares}</td>
               <td>{holding.purchase_price}</td>
               <td>{holding.purchase_date}</td>
