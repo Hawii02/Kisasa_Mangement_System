@@ -13,8 +13,6 @@ import About from './About'
 import { FaBars } from "react-icons/fa"
 import { IoClose } from "react-icons/io5";
 
-
-
 function App() {
   
     const [isOpen, setIsOpen] =useState(false)

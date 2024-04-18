@@ -6,7 +6,7 @@ function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [isSignUp, setIsSignUp] = useState(true); 
+  const [isSignUp, setIsSignUp] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +40,6 @@ function Login({ onLogin }) {
     setPassword(e.target.value);
   };
 
- 
   const toggleSignUp = () => {
     setIsSignUp(!isSignUp);
   };
