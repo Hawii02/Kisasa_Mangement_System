@@ -23,7 +23,7 @@ function NavBar() {
         <div className='w-full link_item p-2  flex items-center justify-center'><Link to='/transactions' className='flex items-center justify-center'><GrTransaction className='mr-3'/> <span>Transactions</span></Link></div>
         <div className='w-full link_item p-2  flex items-center justify-center'> <Link to='/holdings' className='flex items-center justify-center'><FaHandsHolding className='mr-3'/> <span>Holdings</span></Link></div>
         <div className='w-full link_item p-2  flex items-center justify-center'>  <Link to='/client' className='flex items-center justify-center'><BsPersonFillCheck className='mr-3'/> <span>Clients</span></Link></div>
-        <div className='w-full link_item p-2  flex items-center justify-center'>  <Link to='/accounts' className='flex items-center justify-center'><MdOutlineManageAccounts ersonFillCheck className='mr-3'/> <span>Accounts</span></Link></div>
+        <div className='w-full link_item p-2  flex items-center justify-center'>  <Link to='/accounts' className='flex items-center justify-center'><MdOutlineManageAccounts  className='mr-3'/> <span>Accounts</span></Link></div>
       </div>
       <div className='w-full items-center justify-center'>
         <hr />
