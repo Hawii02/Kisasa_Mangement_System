@@ -19,7 +19,7 @@ function Asset() {
      
       <table className='  w-full  '>
         <thead>
-          <tr className='text-[#f59e0b] font-bold '>
+          <tr className=' font-bold '>
             <th>number_of_shares</th>
             <th>purchase_date</th>
             <th>purchase_price</th>
