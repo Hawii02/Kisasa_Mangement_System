@@ -12,6 +12,7 @@ import Dashboard from './Dashboard'
 import About from './About'
 import { FaBars } from "react-icons/fa"
 import { IoClose } from "react-icons/io5";
+import { FaCloudShowersWater } from 'react-icons/fa6'
 
 function App() {
   

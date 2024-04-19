@@ -20,6 +20,7 @@ function Asset() {
       <table className='border rounded-lg w-full h-screen '>
         <thead>
           <tr className='text-[#f59e0b] font-bold '>
+            <th>Client Id</th>
             <th>Type of asset</th>
             <th>Value</th>
             <th>Purchase price</th>
@@ -29,6 +30,7 @@ function Asset() {
         <tbody>
           {assets.map(asset => (
             <tr key={asset.id}>
+              <td>{asset.client_id}</td>
               <td>{asset.type_of_asset}</td>
               <td>{asset.value}</td>
               <td>{asset.purchase_price}</td>
