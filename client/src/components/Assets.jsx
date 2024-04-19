@@ -11,13 +11,13 @@ function Asset() {
   }, []);
 
   return (
-    <div className='flex items-center w-full h-screen flex-col mt-5'>
-      <div className='flex items-center justify-center w-full text-4xl font-bold hover:text-[#f59e0b]'>
+    <div className='flex items-center w-full  flex-col'>
+      <div className='flex items-center justify-center w-full text-2xl font-bold hover:text-[#f59e0b]'>
       <h1 className='text-center'>Client Assets Overview</h1>
       </div>
-      <div className='w-full items-center flex justify-center mt-7 '>
+      <div className='w-full items-center flex justify-center mt-2 '>
      
-      <table className='border rounded-lg w-full h-screen '>
+      <table className='  w-full  '>
         <thead>
           <tr className='text-[#f59e0b] font-bold '>
             <th>Client Id</th>
