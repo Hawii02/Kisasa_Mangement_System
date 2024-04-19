@@ -23,16 +23,16 @@ function Client() {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Account Type</th>
+            <th>Account Id</th>
           </tr>
         </thead>
         <tbody>
           {clients.map(client => (
             <tr key={client.id}>
-              <td>{client.firstName}</td>
-              <td>{client.lastName}</td>
+              <td>{client.first_name}</td>
+              <td>{client.last_name}</td>
               <td>{client.email}</td>
-              <td>{client.accountType}</td>
+              <td>{client.account_id}</td>
             </tr>
           ))}
         </tbody>

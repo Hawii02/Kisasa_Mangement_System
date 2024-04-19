@@ -28,9 +28,11 @@ function Asset() {
         <tbody>
           {assets.map(asset => (
             <tr key={asset.id}>
-              <td>{asset.number_of_shares}</td>
-              <td>{asset.purchase_date}</td>
+              <td>{asset.type_of_asset}</td>
+              <td>{asset.value}</td>
               <td>{asset.purchase_price}</td>
+              <td>{asset.purchase_date}</td>
+              <td>{asset.client_id}</td>
             </tr>
           ))}
         </tbody>

@@ -12,7 +12,7 @@ function Login({ onLogin }) {
     e.preventDefault();
     try {
       const response = await fetch("/login", {
-        method: "POST",
+        metonshod: "POST",
         headers: {
           "Content-Type": "application/json",
         },

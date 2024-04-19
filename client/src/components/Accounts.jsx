@@ -33,7 +33,7 @@ function Account() {
               <td>{account.account_number}</td>
               <td>{account.account_balance}</td>
               <td>{account.client_id}</td>
-              <td>{account.client_name}</td>
+              <td>{account.client_first_name}</td>
             </tr>
           ))}
         </tbody>
