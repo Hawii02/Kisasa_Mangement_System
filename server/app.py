@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 # Importing database models and JWT-related modules
 from models import db, Client, Transactions, Asset, Holdings, Admin, Account, TokenBlocklist
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt, set_access_cookies, get_jwt_identity
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt, set_access_cookies, get_jwt_identity
 
 # Creating Flask application instance
 app = Flask(__name__)
