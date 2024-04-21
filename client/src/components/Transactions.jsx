@@ -4,7 +4,7 @@ function Transactions() {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    fetch('')
+    fetch('http://127.0.0.1:5555/transactions')
       .then(response => response.json())
       .then(data => setTransactions(data))
       .catch(error => console.error('Error fetching transactions:', error));

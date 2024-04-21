@@ -9,7 +9,7 @@ fake = Faker()
 # Function to generate random client data
 def generate_client_data():
     clients_data = []
-    for _ in range(5):  
+    for _ in range(5):  # Generate 5 clients
         client_data = {
             'first_name': fake.first_name(),
             'last_name': fake.last_name(),
@@ -24,7 +24,7 @@ def generate_account_data(clients):
     for client in clients:
         account_data = {
             'account_number': fake.random_number(digits=9),
-            'client_id': client.id  
+            'client_id': client.id  # Set client_id directly
         }
         accounts_data.append(account_data)
     return accounts_data
@@ -38,7 +38,7 @@ def generate_transaction_data(clients):
             'transaction_type': random.choice(['Deposit', 'Withdrawal']),
             'transaction_amount': random.uniform(10, 1000),
             'transaction_date': fake.date_time_this_month(),
-            'client': client  
+            'client': client  # Pass the Client object directly
         }
         transactions_data.append(transaction_data)
     return transactions_data
@@ -53,7 +53,7 @@ def generate_asset_data(clients):
             'value': random.uniform(1000, 100000),
             'purchase_price': random.uniform(500, 5000),
             'purchase_date': fake.date_this_decade(),
-            'client_id': client.id  
+            'client_id': client.id  # Access client's ID attribute
         }
         assets_data.append(asset_data)
     return assets_data
@@ -68,7 +68,7 @@ def generate_holdings_data(accounts, assets, clients):
             'purchase_date': fake.date_this_year(),
             'account_id': account.id,
             'asset_id': asset.id,
-            'client': asset.client  
+            'client': asset.client  # Pass the Client object directly
         }
         holdings_data.append(holding_data)
     return holdings_data

@@ -1,13 +1,38 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.hybrid import hybrid_property
+from flask_bcrypt import Bcrypt 
 from datetime import datetime
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
+class Admin(db.Model):
+
+    __tablename__ = 'admin'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    email = db.Column(db.String(100))
+
+    _password_hash = db.Column(db.String, nullable=False)
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+    
+    @password_hash.setter
+    def password_hash(self,userpassword):
+        hashed_value = bcrypt.generate_password_hash(userpassword.encode('utf-8'))
+        self._password_hash = hashed_value.decode('utf-8')
+
+    def authenticate(self,userpassword):
+        is_valid = bcrypt.check_password_hash(self._password_hash, userpassword.encode('utf-8'))
+        return is_valid
 
 class Client(db.Model):
     __tablename__ = 'clients'
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50))  
+    first_name = db.Column(db.String(50))  # Define the first_name attribute
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(100))
 
@@ -78,7 +103,7 @@ class Transactions(db.Model, SerializerMixin):
             'transaction_date': self.transaction_date.isoformat(),
             'client': {
                 'id': self.client.id,
-                'name': self.client.name,
+                'name': self.client.first_name,
                 'email': self.client.email
             }
         }

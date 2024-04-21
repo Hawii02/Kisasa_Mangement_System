@@ -4,7 +4,7 @@ function Holding() {
   const [holdings, setHoldings] = useState([]);
 
   useEffect(() => {
-    fetch('')
+    fetch('http://127.0.0.1:5555/holdings')
       .then(response => response.json())
       .then(data => setHoldings(data))
       .catch(error => console.error('Error fetching holdings:', error));
