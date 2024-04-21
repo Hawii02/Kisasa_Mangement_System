@@ -1,159 +1,131 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Asset() {
-  const [assets, setAssets] = useState([]);
+function Transactions() {
+  const [transactions, setTransactions] = useState([]);
   const [search, setSearch] = useState('');
-  const [selectedAsset, setSelectedAsset] = useState(null);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5555/assets')
+    fetch('http://127.0.0.1:5556/assets')
       .then(response => response.json())
-      .then(data => setAssets(data))
-      .catch(error => console.error('Error fetching assets:', error));
+      .then(data => setTransactions(data))
+      .catch(error => console.error('Error fetching transactions:', error));
   }, []);
-
-  const filteredAssets = assets.filter(asset => {
-    return asset.id.toString().includes(search); // Filter by ID
-  });
 
   const handleSearchChange = event => {
     setSearch(event.target.value);
   };
 
   const handleEdit = id => {
-    // Find the asset with the given ID
-    const assetToEdit = assets.find(asset => asset.id === id);
-    if (!assetToEdit) {
-      console.error(`Asset with ID ${id} not found.`);
+    const transactionToEdit = transactions.find(transaction => transaction.id === id);
+    if (!transactionToEdit) {
+      console.error(`Transaction with ID ${id} not found.`);
       return;
     }
-
-    // Set the selected asset in state
-    setSelectedAsset(assetToEdit);
-  };
-
-  const handleSaveChanges = updatedAsset => {
-    // Update the asset in the assets state
-    setAssets(prevAssets => prevAssets.map(asset => {
-      if (asset.id === updatedAsset.id) {
-        return updatedAsset;
-      }
-      return asset;
-    }));
-    // Close the modal
-    setSelectedAsset(null);
+    setSelectedTransaction(transactionToEdit);
   };
 
   const handleDelete = id => {
-    // Confirm deletion with the user
-    const confirmDelete = window.confirm('Are you sure you want to delete this asset?');
-    if (!confirmDelete) {
-      return; // If user cancels deletion, exit the function
-    }
-
-    // Perform the delete action
-    fetch(`http://127.0.0.1:5555/assets/${id}`, {
+    fetch(`http://127.0.0.1:5556/assets/${id}`, {
       method: 'DELETE'
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to delete asset with ID ${id}`);
-      }
-      // Remove the deleted asset from the assets state
-      setAssets(prevAssets => prevAssets.filter(asset => asset.id !== id));
-      console.log(`Asset with ID ${id} deleted successfully.`);
+      .then(response => {
+        if (response.ok) {
+          setTransactions(transactions.filter(transaction => transaction.id !== id));
+          console.log(`Transaction with ID ${id} deleted successfully`);
+        } else {
+          console.error(`Failed to delete transaction with ID ${id}`);
+        }
+      })
+      .catch(error => console.error(`Error deleting transaction with ID ${id}:`, error));
+  };
 
-      // Reassign IDs in ascending order
-      setAssets(prevAssets => {
-        return prevAssets.map((asset, index) => {
-          return { ...asset, id: index + 1 };
-        });
-      });
-    })
-    .catch(error => {
-      console.error('Error deleting asset:', error);
-    });
+  const filteredTransactions = transactions.filter(transaction =>
+    transaction.id.toString().includes(search)
+  );
+
+  const redirectToEditPage = id => {
+    navigate(`/edit-transaction/${id}`);
   };
 
   return (
-    <div className='flex items-center w-full  flex-col'>
-      <div className='flex items-center justify-center w-full  '>
-        <h1 className='text-center text-2xl font-bold hover:text-[#f59e0b]'>Client Assets Overview</h1>
+    <div className='flex flex-col items-center w-full h-screen mt-5'>
+      <div className='flex items-center justify-center w-full text-4xl font-bold hover:text-[#f59e0b]'>
+        <h1 className='text-center'>List of Assets</h1>
         <form className='ml-11 float-right'>
           <input
             type="text"
             placeholder='Search by ID...'
-            className='bg-none text-sm p-1  border border-black outline-none w-[250px] rounded-full text-black'
+            className='bg-none text-sm p-1  border border-black outline-none w-full rounded-full text-black'
             value={search}
             onChange={handleSearchChange}
           />
         </form>
       </div>
-      <div className='w-[500px] items-center flex justify-center mt-2 '>
-        <table className='  w-full border rounded-lg border-black h-screen  '>
+      <div className='w-full items-center flex justify-center mt-7'>
+        <table className='border border-black rounded-lg w-full h-screen'>
           <thead>
-            <tr className=' font-bold  w-full border border-black  '>
-              <th className='p-2 border border-black'>Index</th>
-              <th className='p-2 border border-black'>number of shares</th>
-              <th className='p-2 border border-black'>purchase date</th>
-              <th className='p-2 border border-black'>purchase price</th>
-              <th className='p-2 border border-black'>Date purchased</th>
-              <th className='p-2 border border-black'>Client Id</th>
-              <th className='p-2 border border-black'>Actions</th>
+            <tr className='text border border-black font-bold'>
+              <th className='border border-black'>Id</th>
+              <th className='border border-black'>Asset Type</th>
+              <th className='border border-black'>value</th>
+              <th className='border border-black'>Purchase price</th>
+              <th className='border border-black'>Purchase date</th>
+              <th className='border border-black'>Client Id</th>
+              <th className='border border-black'>Action</th>
             </tr>
           </thead>
           <tbody>
-            {filteredAssets.map(asset => (
-              <tr key={asset.id} className='w-full border border-black'>
-                <td className='p-1  text-center'>{asset.id}</td>
-                <td className='p-1  text-center'>{asset.type_of_asset}</td>
-                <td className='p-1  text-center'>{asset.value}</td>
-                <td className='p-1  text-center'>{asset.purchase_price}</td>
-                <td className='p-1  text-center'>{asset.purchase_date}</td>
-                <td className='p-1  text-center'>{asset.client_id}</td>
-                <td className='p-1  text-center'>
-                  <button
-                    className='flex p-2 w-[150x] text-sm bg-[#022c22] text-white mr-2'
-                    onClick={() => handleEdit(asset.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className='flex p-2 w-[150x] text-sm bg-red-800 text-white'
-                    onClick={() => handleDelete(asset.id)}
-                  >
-                    Delete
-                  </button>
+            {filteredTransactions.map(transaction => (
+              <tr key={transaction.id}>
+                <td className='text-center border border-black p-2'>{transaction.id}</td>
+                <td className='text-center border border-black p-2'>{transaction.type_of_asset}</td>
+                <td className='text-center border border-black p-2'>{transaction.value}</td>
+                <td className='text-center border border-black p-2'>{transaction.purchase_price}</td>
+                <td className='text-center border border-black p-2'>{transaction.purchase_date}</td>
+                <td className='text-center border border-black p-2'>{transaction.client_id}</td>
+                <td className='flex justify-center'>
+                  <button className='ml-3 mt-1 bg-green-900 text-white p-1 w-[100px] rounded-md' onClick={() => handleEdit(transaction.id)}>Edit</button>
+                  <button className='ml-3 mt-1 bg-red-900 text-white p-1 w-[100px] rounded-md' onClick={() => handleDelete(transaction.id)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {selectedAsset && (
+      {selectedTransaction && (
         <EditModal
-          asset={selectedAsset}
-          onSave={handleSaveChanges}
-          onClose={() => setSelectedAsset(null)}
+          transaction={selectedTransaction}
+          onSave={updatedTransaction => {
+            setTransactions(prevTransactions =>
+              prevTransactions.map(transaction =>
+                transaction.id === updatedTransaction.id ? updatedTransaction : transaction
+              )
+            );
+            setSelectedTransaction(null);
+          }}
+          onClose={() => setSelectedTransaction(null)}
         />
       )}
     </div>
   );
 }
 
-function EditModal({ asset, onSave, onClose }) {
-  const [editedAsset, setEditedAsset] = useState({ ...asset });
+function EditModal({ transaction, onSave, onClose }) {
+  const [editedTransaction, setEditedTransaction] = useState({ ...transaction });
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setEditedAsset(prevState => ({
+    setEditedTransaction(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
 
   const handleSave = () => {
-    onSave(editedAsset);
+    onSave(editedTransaction);
   };
 
   return (
@@ -170,29 +142,25 @@ function EditModal({ asset, onSave, onClose }) {
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                  Edit Asset
+                  Edit Transaction
                 </h3>
                 <div className="mt-2">
                   <form>
                     <div className="mb-4">
-                      <label htmlFor="type_of_asset" className="block text-gray-700 text-sm font-bold mb-2">Type of Asset:</label>
-                      <input type="text" id="type_of_asset" name="type_of_asset" value={editedAsset.type_of_asset} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="value" className="block text-gray-700 text-sm font-bold mb-2">Value:</label>
-                      <input type="text" id="value" name="value" value={editedAsset.value} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="purchase_price" className="block text-gray-700 text-sm font-bold mb-2">Purchase Price:</label>
-                      <input type="text" id="purchase_price" name="purchase_price" value={editedAsset.purchase_price} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="purchase_date" className="block text-gray-700 text-sm font-bold mb-2">Purchase Date:</label>
-                      <input type="text" id="purchase_date" name="purchase_date" value={editedAsset.purchase_date} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                    </div>
-                    <div className="mb-4">
                       <label htmlFor="client_id" className="block text-gray-700 text-sm font-bold mb-2">Client ID:</label>
-                      <input type="text" id="client_id" name="client_id" value={editedAsset.client_id} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                      <input type="text" id="client_id" name="client_id" value={editedTransaction.client_id} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="transaction_type" className="block text-gray-700 text-sm font-bold mb-2">Transaction Type:</label>
+                      <input type="text" id="transaction_type" name="transaction_type" value={editedTransaction.transaction_type} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="transaction_amount" className="block text-gray-700 text-sm font-bold mb-2">Transaction Amount:</label>
+                      <input type="text" id="transaction_amount" name="transaction_amount" value={editedTransaction.transaction_amount} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="transaction_date" className="block text-gray-700 text-sm font-bold mb-2">Transaction Date:</label>
+                      <input type="text" id="transaction_date" name="transaction_date" value={editedTransaction.transaction_date} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                     </div>
                   </form>
                 </div>
@@ -213,4 +181,4 @@ function EditModal({ asset, onSave, onClose }) {
   );
 }
 
-export default Asset;
+export default Transactions;

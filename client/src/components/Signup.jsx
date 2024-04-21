@@ -1,28 +1,27 @@
 import { useState } from "react";
 import { FaShopLock } from "react-icons/fa6";
 
-function Login({ onLogin }) {
+function Signup({ onLogin }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [isSignUp, setIsSignUp] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:5556/admin", {
+      const response = await fetch("http://127.0.0.1:5556/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, email, password }),
       });
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error("Failed to login");
+        throw new Error(data.error || "Failed to register");
       }
-      const user = await response.json();
-      onLogin(user);
+      onLogin();
     } catch (error) {
       setError(error.message);
     }
@@ -40,18 +39,11 @@ function Login({ onLogin }) {
     setPassword(e.target.value);
   };
 
-  const toggleSignUp = () => {
-    setIsSignUp(!isSignUp);
-  };
-
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-4 w-full h-full lg:h-screen items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-lg w-full lg:shadow-md lg:h-[500px] lg:ml-[5%] my-[30px] items-center justify-center"
-      >
+      <form onSubmit={handleSubmit} className="rounded-lg w-full lg:shadow-md lg:h-[500px] lg:ml-[5%] my-[30px] items-center justify-center">
         <div className="w-full text-[#022c22] items-center justify-center flex flex-col">
-          <FaShopLock className="text-8xl" />
+          <FaShopLock  className='text-8xl'/>
           <h1 className="text-5xl">
             Kis<span className="text-1xl text-[#f59e0b] font-bold ">A</span>sa
           </h1>
@@ -59,7 +51,6 @@ function Login({ onLogin }) {
         <div className="flex flex-col gap-4 items-center justify-center w-full mt-11">
           <input
             type="text"
-            id="username"
             value={username}
             onChange={handleUsernameChange}
             placeholder="Enter username..."
@@ -67,7 +58,6 @@ function Login({ onLogin }) {
           />
           <input
             type="email"
-            id="email"
             value={email}
             onChange={handleEmailChange}
             placeholder="Enter email..."
@@ -75,7 +65,6 @@ function Login({ onLogin }) {
           />
           <input
             type="password"
-            id="password"
             value={password}
             onChange={handlePasswordChange}
             placeholder="Enter password..."
@@ -87,21 +76,16 @@ function Login({ onLogin }) {
             type="submit"
             className="bg-[#022c22] font-bold text-lg hover:bg-[#f59e0b] hover:text-[#022c22] text-white p-2 w-[130px] py-2 rounded-md"
           >
-            {isSignUp ? "Sign Up" : "Login"}
-          </button>
-        </div>
-        <div className="flex items-center justify-center mt-4">
-          <button type="button" onClick={toggleSignUp} className="text-[#022c22] focus:outline-none">
-            {isSignUp ? "Already have an account? Log in" : "Don't have an account? Sign up"}
+            Sign Up
           </button>
         </div>
         <div className="flex items-center justify-center mt-4">
           {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
       </form>
-      <div className="flex items-center lg:mr-[5%] custom_bg_image lg:h-[500px] rounded-lg shadow-md"></div>
+      <div className="flex  items-center lg:mr-[5%] custom_bg_image  lg:h-[500px] rounded-lg shadow-md"></div>
     </div>
   );
 }
 
-export default Login;
+export default Signup;
