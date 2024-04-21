@@ -4,7 +4,7 @@ function Asset() {
   const [assets, setAssets] = useState([]);
 
   useEffect(() => {
-    fetch('')
+    fetch('http://127.0.0.1:5000/assets')
       .then(response => response.json())
       .then(data => setAssets(data))
       .catch(error => console.error('Error fetching assets:', error));
@@ -35,7 +35,6 @@ function Asset() {
               <td>{asset.value}</td>
               <td>{asset.purchase_price}</td>
               <td>{asset.purchase_date}</td>
-              <td>{asset.client_id}</td>
             </tr>
           ))}
         </tbody>

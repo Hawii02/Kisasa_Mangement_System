@@ -4,7 +4,7 @@ function Account() {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    fetch('')
+    fetch('http://127.0.0.1:5000/accounts')
       .then(response => response.json())
       .then(data => setAccounts(data))
       .catch(error => console.error('Error fetching accounts:', error));
