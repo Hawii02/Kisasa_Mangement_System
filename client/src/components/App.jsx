@@ -14,6 +14,7 @@ import About from './About';
 import { FaBars } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import Logout from './Logout';
+import ClientForm from './ClientForm';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +54,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/clientform" element={<ClientForm />} />
+
               </Routes>
             </div>
           </div>
