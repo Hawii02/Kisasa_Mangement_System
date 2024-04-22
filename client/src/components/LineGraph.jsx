@@ -9,7 +9,7 @@ function LineGraph() {
         labels:["Stock", "Bond", "ETF"],
         datasets:[{
           label:"Assets",
-          data:[200, 500, 600],
+          data:[700, 500, 600],
 
           backgroundColor:[
             'rgb(245,158,11)',

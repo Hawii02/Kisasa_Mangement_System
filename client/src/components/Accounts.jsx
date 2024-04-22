@@ -4,7 +4,7 @@ function Account() {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/accounts')
+    fetch(' http://127.0.0.1:5556/accounts')
       .then(response => response.json())
       .then(data => setAccounts(data))
       .catch(error => console.error('Error fetching accounts:', error));
@@ -17,23 +17,24 @@ function Account() {
       </div>
       <div className='w-full items-center flex justify-center mt-7 '>
      
-      <table className='border rounded-lg w-full h-screen '>
+      <table className='border border-black rounded-lg w-full h-screen '>
         <thead>
-          <tr className='text-[#f59e0b] font-bold '>
-            <th></th>
-            <th>Account_number</th>
-            <th>Account_balance</th>
-            <th>Client_id</th>
-            <th>Client_name</th>
+          <tr className='text-[#f59e0b] font-bold border border-black'>
+            <th className='border border-black'>Id</th>
+            <th className='border border-black'>Account_number</th>
+            <th className='border border-black'>Account_balance</th>
+            <th className='border border-black'>Client_id</th>
+            <th className='border border-black'>Client_name</th>
           </tr>
         </thead>
         <tbody>
           {accounts.map(account => (
             <tr key={account.id}>
-              <td>{account.account_number}</td>
-              <td>{account.account_balance}</td>
-              <td>{account.client_id}</td>
-              <td>{account.client_first_name}</td>
+              <td className='text-center border border-black '>{account.id}</td>
+              <td className='text-center '>{account.account_number}</td>
+              <td className='text-center border border-black'>{account.acc_balance}</td>
+              <td className='text-center border border-black'>{account.client_id}</td>
+              <td className='text-center '>{account.client_name}</td>
             </tr>
           ))}
         </tbody>

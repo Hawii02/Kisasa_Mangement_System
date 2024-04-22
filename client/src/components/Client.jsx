@@ -4,7 +4,7 @@ function Client() {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/clients')
+    fetch('http://127.0.0.1:5556/clients')
       .then(response => response.json())
       .then(data => setClients(data))
       .catch(error => console.error('Error fetching clients:', error));
@@ -17,22 +17,22 @@ function Client() {
       </div>
       <div className='w-full items-center flex justify-center mt-7 '>
      
-      <table className='border rounded-lg w-full h-screen '>
+      <table className='border border-black rounded-lg w-full h-screen '>
         <thead>
           <tr className='text-[#f59e0b] font-bold '>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Account Id</th>
+            <th className='border border-black'>First Name</th>
+            <th className='border border-black'>Last Name</th>
+            <th className='border border-black'>Email</th>
+            
           </tr>
         </thead>
         <tbody>
           {clients.map(client => (
-            <tr key={client.id}>
-              <td>{client.first_name}</td>
-              <td>{client.last_name}</td>
-              <td>{client.email}</td>
-              <td>{client.account_id}</td>
+            <tr key={client.id} className='border border-black'>
+              <td className='text-center'>{client.first_name}</td>
+              <td className='text-center'>{client.last_name}</td>
+              <td className='text-center border border-black'>{client.email}</td>
+              
             </tr>
           ))}
         </tbody>
