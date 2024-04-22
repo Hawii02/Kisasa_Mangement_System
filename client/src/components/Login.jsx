@@ -1,28 +1,32 @@
-import { useState } from "react";
+// Login.js
+import React, { useState } from "react";
 import { FaShopLock } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
-function Login({ onLogin }) {
+function Login({ handleLogin }) {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:5556/admin", {
+      const url = isSignUp ? "http://127.0.0.1:5556/signup" : "http://127.0.0.1:5556/login";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, password }),
       });
       if (!response.ok) {
-        throw new Error("Failed to login");
+        throw new Error(isSignUp ? "Failed to sign up" : "Failed to login");
       }
-      const user = await response.json();
-      onLogin(user);
+     
+      handleLogin(); // Call the handleLogin function passed from App
+      navigate('/'); // Redirect to the home page
     } catch (error) {
       setError(error.message);
     }
@@ -32,16 +36,16 @@ function Login({ onLogin }) {
     setUsername(e.target.value);
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
   const toggleSignUp = () => {
     setIsSignUp(!isSignUp);
+    // Clear form fields when switching between login and signup
+    setUsername("");
+    setPassword("");
+    setError(null);
   };
 
   return (
@@ -63,14 +67,6 @@ function Login({ onLogin }) {
             value={username}
             onChange={handleUsernameChange}
             placeholder="Enter username..."
-            className="border border-[#022c22] rounded-sm p-2 outline-none"
-          />
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter email..."
             className="border border-[#022c22] rounded-sm p-2 outline-none"
           />
           <input

@@ -80,7 +80,7 @@ def login():
     return response
 
 @app.route('/logout', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def logout():
     jti = get_jwt()['jti']
     token_to_block = TokenBlocklist(jti=jti)
