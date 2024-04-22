@@ -31,9 +31,9 @@ function Client() {
         <tbody>
           {clients.map(client => (
             <tr key={client.id} className='border border-black'>
-              <td className='text-center p-2'>{client.first_name}</td>
-              <td className='text-center p-2'>{client.last_name}</td>
-              <td className='text-center p-2 border border-black'>{client.email}</td>
+              <td className='text-center'>{client.first_name}</td>
+              <td className='text-center'>{client.last_name}</td>
+              <td className='text-center border border-black'>{client.email}</td>
               
             </tr>
           ))}

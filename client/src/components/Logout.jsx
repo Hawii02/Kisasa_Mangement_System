@@ -8,7 +8,7 @@ function Logout() {
   const handleLogout = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5556/logout', {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },

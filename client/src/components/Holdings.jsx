@@ -13,7 +13,7 @@ function Holding() {
   }, []);
 
   const filteredHoldings = holdings.filter(holding => {
-    return holding.client_id.toString().includes(search); // Filter by Client ID
+    return holding.client_id.toString().includes(search); 
   });
 
   const handleSearchChange = event => {
@@ -21,37 +21,29 @@ function Holding() {
   };
 
   const handleEdit = id => {
-    // Find the holding with the given ID
     const holdingToEdit = holdings.find(holding => holding.id === id);
     if (!holdingToEdit) {
       console.error(`Holding with ID ${id} not found.`);
       return;
     }
-
-    // Set the selected holding in state
     setSelectedHolding(holdingToEdit);
   };
 
   const handleSaveChanges = updatedHolding => {
-    // Update the holding in the holdings state
     setHoldings(prevHoldings => prevHoldings.map(holding => {
       if (holding.id === updatedHolding.id) {
         return updatedHolding;
       }
       return holding;
     }));
-    // Close the modal
     setSelectedHolding(null);
   };
 
   const handleDelete = id => {
-    // Confirm deletion with the user
     const confirmDelete = window.confirm('Are you sure you want to delete this holding?');
     if (!confirmDelete) {
-      return; // If user cancels deletion, exit the function
+      return; 
     }
-
-    // Perform the delete action
     fetch(`http://127.0.0.1:5556/holdings/${id}`, {
       method: 'DELETE'
     })
@@ -59,11 +51,8 @@ function Holding() {
       if (!response.ok) {
         throw new Error(`Failed to delete holding with ID ${id}`);
       }
-      // Remove the deleted holding from the holdings state
       setHoldings(prevHoldings => prevHoldings.filter(holding => holding.id !== id));
-      console.log(`Holding with ID ${id} deleted successfully.`);
-
-      // Reassign IDs in ascending order
+      console.log(`Holding with ID ${id} deleted successfully.`); 
       setHoldings(prevHoldings => {
         return prevHoldings.map((holding, index) => {
           return { ...holding, id: index + 1 };
@@ -74,8 +63,6 @@ function Holding() {
       console.error('Error deleting holding:', error);
     });
   };
-
-  // Define the EditModal component here
   const EditModal = ({ holding, onSave, onClose }) => {
     const [editedHolding, setEditedHolding] = useState({ ...holding });
 

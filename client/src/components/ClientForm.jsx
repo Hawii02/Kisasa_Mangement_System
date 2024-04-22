@@ -28,7 +28,6 @@ function ClientForm() {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        // Redirect to the client list page after successful creation
         navigate('/client');
       } else {
         console.error('Failed to create client:', response.statusText);

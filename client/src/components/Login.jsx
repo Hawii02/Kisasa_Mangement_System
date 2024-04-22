@@ -25,8 +25,8 @@ function Login({ handleLogin }) {
         throw new Error(isSignUp ? "Failed to sign up" : "Failed to login");
       }
      
-      handleLogin(); // Call the handleLogin function passed from App
-      navigate('/'); // Redirect to the home page
+      handleLogin(); 
+      navigate('/'); 
     } catch (error) {
       setError(error.message);
     }
@@ -42,7 +42,6 @@ function Login({ handleLogin }) {
 
   const toggleSignUp = () => {
     setIsSignUp(!isSignUp);
-    // Clear form fields when switching between login and signup
     setUsername("");
     setPassword("");
     setError(null);

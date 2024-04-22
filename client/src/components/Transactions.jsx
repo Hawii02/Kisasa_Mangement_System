@@ -5,8 +5,8 @@ function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [search, setSearch] = useState('');
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [editedTransaction, setEditedTransaction] = useState(null); // State for edited transaction
-  const navigate = useNavigate(); // Use useNavigate hook for navigation
+  const [editedTransaction, setEditedTransaction] = useState(null); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch('http://127.0.0.1:5556/transactions')
@@ -20,7 +20,6 @@ function Transactions() {
   };
 
   const handleEdit = id => {
-    // Find the transaction to edit by its ID
     const transactionToEdit = transactions.find(transaction => transaction.id === id);
     if (!transactionToEdit) {
       console.error(`Transaction with ID ${id} not found.`);
@@ -30,21 +29,18 @@ function Transactions() {
   };
 
   const handleSaveChanges = () => {
-    // Update the transactions list with the edited transaction
     setTransactions(transactions.map(transaction =>
       transaction.id === editedTransaction.id ? editedTransaction : transaction
     ));
-    setSelectedTransaction(null); // Close the modal
+    setSelectedTransaction(null);
   };
 
   const handleDelete = id => {
-    // Send delete request to delete transaction with the given ID
     fetch(`http://127.0.0.1:5556/transactions/${id}`, {
       method: 'DELETE'
     })
       .then(response => {
         if (response.ok) {
-          // If deletion is successful, update the transactions list
           setTransactions(transactions.filter(transaction => transaction.id !== id));
           console.log(`Transaction with ID ${id} deleted successfully`);
         } else {
@@ -104,7 +100,7 @@ function Transactions() {
           transaction={selectedTransaction}
           onSave={handleSaveChanges}
           onClose={() => setSelectedTransaction(null)}
-          setEditedTransaction={setEditedTransaction} // Pass setEditedTransaction function to the modal
+          setEditedTransaction={setEditedTransaction} 
         />
       )}
     </div>
@@ -123,13 +119,13 @@ function EditModal({ transaction, onSave, onClose, setEditedTransaction }) {
   };
 
   const handleSave = () => {
-    setEditedTransaction(editedData); // Update the edited transaction in the parent component
-    onSave(); // Call the onSave function in the parent component
+    setEditedTransaction(editedData); 
+    onSave(); 
   };
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
-      {/* Modal content goes here */}
+     
     </div>
   );
 }
