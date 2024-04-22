@@ -26,7 +26,7 @@ jwt = JWTManager(app)
 
 migrate = Migrate(app, db)
 api = Api(app)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 @app.route('/api')
 @jwt_required()
@@ -84,9 +84,11 @@ def login():
     response = make_response({"message": "Logged In Successfully"})
     set_access_cookies(response, access_token)
     return response
+@app.route('/logout', methods=['DELETE'])
+@jwt_required()
 
-@app.route('/api/logout', methods=['POST'])
-# @jwt_required()
+@app.route('/logout', methods=['DELETE'])
+@jwt_required()
 def logout():
     jti = get_jwt()['jti']
     token_to_block = TokenBlocklist(jti=jti)

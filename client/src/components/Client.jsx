@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Client() {
   const [clients, setClients] = useState([]);
@@ -12,12 +13,13 @@ function Client() {
 
   return (
     <div className='flex items-center w-full h-screen flex-col mt-5'>
-      <div className='flex items-center justify-center w-full text-4xl font-bold hover:text-[#f59e0b]'>
+      <div className='flex items-center justify-center w-full text-4xl font-bold '>
       <h1 className='text-center'>List of Clients</h1>
+    <Link to='/clientform'>  <button className='ml-11 text-sm w-[130px] p-2 bg-[#022c22] text-white rounded-full hover:bg-[#f59e0b] hover:text-[#022c22]'>New Client</button></Link>
       </div>
       <div className='w-full items-center flex justify-center mt-7 '>
      
-      <table className='border border-black rounded-lg w-full h-screen '>
+      <table className='border border-black rounded-lg w-full h-full '>
         <thead>
           <tr className='text-[#f59e0b] font-bold '>
             <th className='border border-black'>First Name</th>
