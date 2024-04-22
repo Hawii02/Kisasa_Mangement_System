@@ -9,7 +9,7 @@ function Transactions() {
   const navigate = useNavigate(); // Use useNavigate hook for navigation
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5556/transactions')
+    fetch('http://127.0.0.1:5556/api/transactions')
       .then(response => response.json())
       .then(data => setTransactions(data))
       .catch(error => console.error('Error fetching transactions:', error));

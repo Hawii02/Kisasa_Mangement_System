@@ -8,7 +8,7 @@ function Transactions() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5556/assets')
+    fetch('http://127.0.0.1:5556/api/assets')
       .then(response => response.json())
       .then(data => setTransactions(data))
       .catch(error => console.error('Error fetching transactions:', error));

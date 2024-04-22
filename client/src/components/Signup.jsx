@@ -10,7 +10,7 @@ function Signup({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:5556/signup", {
+      const response = await fetch("http://127.0.0.1:5556/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

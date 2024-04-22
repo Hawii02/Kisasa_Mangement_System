@@ -4,7 +4,7 @@ function Client() {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5556/clients')
+    fetch('http://127.0.0.1:5556/api/clients')
       .then(response => response.json())
       .then(data => setClients(data))
       .catch(error => console.error('Error fetching clients:', error));

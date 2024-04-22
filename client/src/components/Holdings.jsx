@@ -6,7 +6,7 @@ function Holding() {
   const [selectedHolding, setSelectedHolding] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5556/holdings')
+    fetch('http://127.0.0.1:5556/api/holdings')
       .then(response => response.json())
       .then(data => setHoldings(data))
       .catch(error => console.error('Error fetching holdings:', error));

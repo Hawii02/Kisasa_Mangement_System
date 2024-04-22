@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response,jsonify
+from flask import Flask, request, make_response,jsonify, render_template
 from flask_restful import Api
 from flask_migrate import Migrate
 from flask_cors import CORS 
@@ -8,8 +8,14 @@ from datetime import datetime, timedelta
 from models import db, Client, Transactions, Asset, Holdings, Admin, Account, TokenBlocklist
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt, set_access_cookies, get_jwt_identity
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../client/build',
+    template_folder='../client/build'
+)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://kisasa_database_user:GRDsiPwSgdpEnGHTmvSEVcjO9Wix7BJO@dpg-coj1050l5elc73dfb1t0-a.oregon-postgres.render.com/kisasa_database"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = secrets.token_hex(16)  
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
@@ -22,7 +28,7 @@ migrate = Migrate(app, db)
 api = Api(app)
 CORS(app)
 
-@app.route('/')
+@app.route('/api')
 @jwt_required()
 def home():
     return '<h1>Welcome to Kisasa Management System"</h1>'
@@ -54,7 +60,7 @@ def check_if_token_is_revoked(jwt_header, jwt_payload):
     target_token = TokenBlocklist.query.filter_by(jti=token).one_or_none()
     return target_token is not None
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     existing_user = Admin.query.filter_by(username=data['username']).first()
@@ -67,7 +73,7 @@ def signup():
     db.session.commit()
     return make_response({"message": "User Created Successfully"}, 201)
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
     user = Admin.query.filter_by(username=data['username']).first()
@@ -79,7 +85,7 @@ def login():
     set_access_cookies(response, access_token)
     return response
 
-@app.route('/logout', methods=['POST'])
+@app.route('/api/logout', methods=['POST'])
 # @jwt_required()
 def logout():
     jti = get_jwt()['jti']
@@ -88,7 +94,7 @@ def logout():
     db.session.commit()
     return make_response({"message": "Successfully logged out"}, 200)
 
-@app.route('/clients', methods=['GET', 'POST'])
+@app.route('/api/clients', methods=['GET', 'POST'])
 def handle_clients():
     if request.method == 'GET':
         clients = [client.to_dict() for client in Client.query.all()]
@@ -109,7 +115,7 @@ def handle_clients():
         db.session.commit()
         return make_response(jsonify(new_client.to_dict()), 201)
 
-@app.route('/clients/<int:client_id>', methods=['PUT', 'DELETE'])
+@app.route('/api/clients/<int:client_id>', methods=['PUT', 'DELETE'])
 # @jwt_required()
 def manage_client(client_id):
     client = Client.query.get(client_id)
@@ -130,7 +136,7 @@ def manage_client(client_id):
         return make_response(jsonify({'message': 'Client successfully deleted'}), 200)
 
 
-@app.route('/transactions', methods=['GET', 'POST'])
+@app.route('/api/transactions', methods=['GET', 'POST'])
 # @jwt_required()
 def transactions():
     if request.method == 'GET':
@@ -164,7 +170,7 @@ def transactions():
         else:
             return make_response(jsonify({'message': 'Transaction amount must be provided'}), 400)
 
-@app.route('/transactions/<int:transaction_id>', methods=['GET', 'DELETE'])
+@app.route('/api/transactions/<int:transaction_id>', methods=['GET', 'DELETE'])
 # @jwt_required()
 def transaction_by_id(transaction_id):
     transaction = Transactions.query.get(transaction_id)
@@ -190,7 +196,7 @@ def transaction_by_id(transaction_id):
 
 
 
-@app.route('/assets', methods=['GET', 'POST'])
+@app.route('/api/assets', methods=['GET', 'POST'])
 # @jwt_required()
 def assets():
     if request.method == 'GET':
@@ -209,7 +215,7 @@ def assets():
         db.session.commit()
         return make_response(jsonify(new_asset.to_dict()), 201)
 
-@app.route('/assets/<int:asset_id>', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+@app.route('/api/assets/<int:asset_id>', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
 # @jwt_required()
 def asset_by_id(asset_id):
     asset = Asset.query.get(asset_id)
@@ -248,7 +254,7 @@ def asset_by_id(asset_id):
 
 
 
-@app.route('/holdings', methods=['GET', 'POST'])
+@app.route('/api/holdings', methods=['GET', 'POST'])
 # @jwt_required()
 def holdings():
     if request.method == 'GET':
@@ -268,7 +274,7 @@ def holdings():
         db.session.commit()
         return make_response(jsonify(new_holding.to_dict()), 201)
 
-@app.route('/holdings/<int:holding_id>', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+@app.route('/api/holdings/<int:holding_id>', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
 # @jwt_required()
 def holding_by_id(holding_id):
     holding = Holdings.query.get(holding_id)
@@ -308,7 +314,7 @@ def holding_by_id(holding_id):
         db.session.commit()
         return make_response(jsonify({'message': 'Holding successfully deleted'}), 200)
     
-@app.route('/accounts', methods=['GET', 'POST'])
+@app.route('/api/accounts', methods=['GET', 'POST'])
 # @jwt_required()
 def accounts():
     if request.method == 'GET':
@@ -324,7 +330,7 @@ def accounts():
         db.session.commit()
         return make_response(jsonify(new_account.to_dict()), 201)
 
-@app.route('/accounts/<int:account_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/accounts/<int:account_id>', methods=['GET', 'PUT', 'DELETE'])
 # @jwt_required()
 def account(account_id):
     account = Account.query.get(account_id)
@@ -343,6 +349,10 @@ def account(account_id):
         db.session.delete(account)
         db.session.commit()
         return make_response(jsonify({'message': 'Account successfully deleted'}), 200)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(port=5556, debug=True)
