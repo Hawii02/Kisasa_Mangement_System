@@ -25,8 +25,12 @@ function Logout() {
   };
 
   return (
-    <button onClick={handleLogout} className=''>Logout</button>
+    <button onClick={handleLogout} className=''> Logout </button>
   );
 }
 
 export default Logout;
+
+
+
+
